@@ -9,11 +9,15 @@ class LinkedList
     if @head
     # if there is already a head then make this the last in the stack
     # go next until you hit nil, then make this value that nil
-    @head.next
+      until Node.next_node == nil
+        Node.next_node
+      end
+      Node.next_node = Node.new(value)
     else
     # if there is no head, make it the head
-    @head = Node.new.(value)
+    @head = Node.new(value)
     end
+    puts Node:value
   end
 
   def prepend(value)
@@ -53,11 +57,13 @@ class LinkedList
 end
 
 class Node
-  attr_accessor :next, :data
+  attr_accessor :value, :next_node
 
-  def initialize(value)
+  def initialize(value, next_node = nil)
     @value = value
-    @next = nil
+    @next_node = next_node
   end
-
 end
+
+stupid = LinkedList.new
+stupid.append(10)
