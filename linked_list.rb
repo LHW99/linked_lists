@@ -1,43 +1,34 @@
 class LinkedList
 
   def initialize
-    @head = nil
+    @head = Node.new(nil, nil)
   end
 
   def append(value)
     # adds a new object to the end of the stack
-    if @head
-    # if there is already a head then make this the last in the stack
-    # go next until you hit nil, then make this value that nil
-      until @head.next_node == nil
-        @head = Node.next_node
-      end
-      @head.next_node = Node.new(value)
-    else
-    # if there is no head, make it the head
-    @head = Node.new(value)
+    current_node = @head
+    if current_node == nil
+      current_node = Node.new(value)
     end
-    puts Node:value
+    until current_node.next_node == nil
+      current_node = current_node.next_node
+    end
+    current_node.next_node = Node.new(value)
   end
 
-  def prepend(value)
+  def prep(value)
     # adds a new object to the beginning of the stack
-    # the head becomes the new value
-    # each subsequent node that exists is pushed down one position
-    if @head
-
-    else
-      @head = Node.new(value)
+    @head = Node.new(value, @head)
   end
 
   def size
     # returns how many nodes are in the linked list
-    puts "There are #{Node::count} nodes in the linked list"
+    puts Node::count
   end
 
   def head
     # returns the value of the head of the linked list
-    puts "The value of the head is #{@head}"
+    puts @head
   end
 
   def at(index)
@@ -59,15 +50,16 @@ class LinkedList
   def to_s
     # returns values of the linked list as a string
     # format: ( value ) -> ( value ) -> nil
-    puts @head
-    until @head.next_node == nil
-      puts Node:value
+    current_node = @head
+    puts current_node.value
+    while (current_node = current_node.next_node)
+      puts current_node.value
     end
   end
 end
 
 class Node
-  attr_accessor :next_node
+  attr_accessor :value, :next_node
 
   def initialize(value, next_node = nil)
     @value = value
@@ -77,4 +69,7 @@ end
 
 stupid = LinkedList.new
 stupid.append(10)
+stupid.append(20)
+stupid.prep(30)
 stupid.to_s
+stupid.size
